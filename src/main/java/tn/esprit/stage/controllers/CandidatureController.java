@@ -1,0 +1,65 @@
+package tn.esprit.stage.controllers;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.*;
+import tn.esprit.stage.entities.Candidature;
+import tn.esprit.stage.entities.ContactPerson;
+import tn.esprit.stage.entities.SendingInstitution;
+import tn.esprit.stage.repositories.CandidatureRep;
+import tn.esprit.stage.repositories.SendingInstitutionRep;
+import tn.esprit.stage.services.ICandidatureImpl;
+import tn.esprit.stage.services.IContactPersonImpl;
+import tn.esprit.stage.services.ISendingInstitutionImpl;
+
+
+@RestController
+public class CandidatureController {
+
+	@Autowired
+	ICandidatureImpl cs ;
+	@Autowired
+	CandidatureRep crep;
+	@Autowired
+	IContactPersonImpl cps;
+	@Autowired
+	ISendingInstitutionImpl sis;
+	@Autowired
+	SendingInstitutionRep sirep;
+	@PostMapping("/addCand")
+	public Candidature addCandidature(@RequestBody Candidature c,@RequestParam Long idcp){
+
+		return cs.addCandidature(c,idcp);
+	}
+
+	@GetMapping("/getCand")
+	public Candidature getCandidature(@RequestParam Long id){
+		return cs.showCandidature(id);
+		//return crep.retrieveCandidatures();
+	}
+
+
+	@GetMapping("/ShowCand")
+	public List<Candidature> showAllCandidature(){	
+		System.out.println(crep.retrieveCandidatures());
+		return cs.showAllCandidature();	
+		//return crep.retrieveCandidatures();
+	}
+	@GetMapping("/showcps")
+	public List<ContactPerson> showAllContactPerson(){
+		return cps.showAllContactPerson();
+	}
+	@GetMapping("/showcp")
+	public ContactPerson showContactPerson(@RequestParam Long id){
+		return  cps.showContactPerson(id);
+	}
+
+	/*@PutMapping("/setcp")
+	public SendingInstitution setContactPerson(@RequestParam Long id){
+		SendingInstitution si = sirep.findById(id).get();
+		return  sis.setContactPerson(cps.showContactPerson(id)).setSendinginstitution();
+	}*/
+
+
+}
