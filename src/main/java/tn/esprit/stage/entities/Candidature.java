@@ -1,11 +1,7 @@
 package tn.esprit.stage.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,6 +14,11 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -26,23 +27,22 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Candidature {
-	
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Id
-	private Long id;
+public class Candidature implements Serializable {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
+
+    private Boolean confirmed,preselected;
 
 
+    private Date confirmationD;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Student student;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private SendingInstitution sendinginstitution;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ReceivingInstitution receivinginstitution;
 
-@ManyToOne
-private Student student;
-@ManyToOne
-private SendingInstitution sendinginstitution;
-@ManyToOne
-private ReceivingInstitution receivinginstitution;
-
-	 
-	
-	
 
 }

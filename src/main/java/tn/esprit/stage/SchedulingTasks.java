@@ -1,18 +1,12 @@
 package tn.esprit.stage;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import tn.esprit.stage.entities.ConfirmationPreselection;
-import tn.esprit.stage.entities.EmailDetails;
 import tn.esprit.stage.repositories.CandidatureRep;
-import tn.esprit.stage.repositories.ConfirmationPreselectionRep;
 import tn.esprit.stage.services.ICandidatureImpl;
-import tn.esprit.stage.services.IConfirmationPreselectionImpl;
 import tn.esprit.stage.services.IEmailsService;
 
 import org.slf4j.Logger;
@@ -25,10 +19,7 @@ public class SchedulingTasks {
 	ICandidatureImpl cs ;
 	@Autowired
 	CandidatureRep crep;
-	@Autowired
-	ConfirmationPreselectionRep cprep;
-	@Autowired
-	IConfirmationPreselectionImpl cps;
+
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	private static final Logger log = LoggerFactory.getLogger(SchedulingTasks.class);
 	

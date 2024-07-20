@@ -11,5 +11,7 @@ public interface ICandidatureImpl {
 	Candidature UpdateCandidature(Candidature cand);
 	void deleteCandidature(Long id);
 	Candidature showCandidature(Long id);
-
+	void preselectCandidature(Candidature cand);
+	void confirmCandidature(Candidature cand);
+	List<Candidature> retrieveStudentCandidatures(Candidature cand);
 }

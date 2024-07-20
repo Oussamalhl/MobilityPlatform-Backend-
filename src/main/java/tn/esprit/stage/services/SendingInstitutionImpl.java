@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.stage.entities.ContactPerson;
 import tn.esprit.stage.entities.SendingInstitution;
+import tn.esprit.stage.entities.Student;
 import tn.esprit.stage.repositories.ContactPersonRep;
 import tn.esprit.stage.repositories.SendingInstitutionRep;
 
@@ -25,6 +26,12 @@ public class SendingInstitutionImpl implements ISendingInstitutionImpl {
 		return sirep.save(si);
 	
 
+	}
+	@Override
+	public SendingInstitution showSendingInstitution(Long id) {
+
+		// TODO Auto-generated method stub
+		return sirep.findById(id).get();
 	}
 	@Override
 	public SendingInstitution setContactPerson(SendingInstitution si,ContactPerson cp) {

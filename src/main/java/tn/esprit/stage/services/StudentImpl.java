@@ -30,6 +30,6 @@ public class StudentImpl implements IStudentImpl {
 	public Student showStudent(Long id) {
 
 		// TODO Auto-generated method stub
-		return srep.findById(id).orElse(null);
+		return srep.findById(id).get();
 	}
 }

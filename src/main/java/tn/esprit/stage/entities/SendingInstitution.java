@@ -1,5 +1,6 @@
 package tn.esprit.stage.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SendingInstitution {
+public class SendingInstitution implements Serializable {
 	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id

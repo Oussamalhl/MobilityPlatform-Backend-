@@ -10,8 +10,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import tn.esprit.stage.entities.Candidature;
-import tn.esprit.stage.entities.ConfirmationPreselection;
 import tn.esprit.stage.entities.EmailDetails;
 @Service
 public class EmailServiceImpl implements IEmailsService {
@@ -48,32 +46,32 @@ public class EmailServiceImpl implements IEmailsService {
         }
     }
     
-    public String sendConfirmationMail(EmailDetails details, ConfirmationPreselection cp){
-    	 try {
-    		 
-             // Creating a simple mail message
-             SimpleMailMessage mailMessage
-                 = new SimpleMailMessage();
-  
-             // Setting up necessary details
-             if (cp.getConfirmed()){
-             mailMessage.setFrom(sender);
-             mailMessage.setTo(cp.getCpstudent().getEmail());
-             mailMessage.setText(details.getMsgBody());
-             mailMessage.setSubject(details.getSubject());
-  
-             // Sending the mail
-             javaMailSender.send(mailMessage);
-             }
-             return "Mail Sent Successfully...";
-         }
-  
-         // Catch block to handle the exceptions
-         catch (Exception e) {
-             return "Error while Sending Mail";
-         }
-    	
-    }
+//    public String sendConfirmationMail(EmailDetails details, ConfirmationPreselection cp){
+//    	 try {
+//
+//             // Creating a simple mail message
+//             SimpleMailMessage mailMessage
+//                 = new SimpleMailMessage();
+//
+//             // Setting up necessary details
+//             if (cp.getConfirmed()){
+//             mailMessage.setFrom(sender);
+//             mailMessage.setTo(cp.getCpstudent().getEmail());
+//             mailMessage.setText(details.getMsgBody());
+//             mailMessage.setSubject(details.getSubject());
+//
+//             // Sending the mail
+//             javaMailSender.send(mailMessage);
+//             }
+//             return "Mail Sent Successfully...";
+//         }
+//
+//         // Catch block to handle the exceptions
+//         catch (Exception e) {
+//             return "Error while Sending Mail";
+//         }
+//
+//    }
  
     // Method 2
     // To send an email with attachment
