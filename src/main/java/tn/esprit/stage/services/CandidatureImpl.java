@@ -30,9 +30,9 @@ public class CandidatureImpl implements ICandidatureImpl {
 
 
     @Override
-    public Candidature addCandidature(Candidature cand, Long idcp) {
+    public Candidature addCandidature(Candidature cand) {
 
-        ContactPerson cnp = cprep.findById(idcp).get();
+        //ContactPerson cnp = cprep.findById(idcp).get();
 
 //		ConfirmationPreselection cp = new ConfirmationPreselection();
 		Student s = ss.addStudent(cand.getStudent());
@@ -41,10 +41,18 @@ public class CandidatureImpl implements ICandidatureImpl {
         cand.setConfirmed(false);
         cand.setPreselected(false);
         ris.addReceivingInstitution(cand.getReceivinginstitution(), cand.getReceivinginstitution().getContactperson());
-        sis.addSendingInstitution(cand.getSendinginstitution(), cnp);
+        sis.addSendingInstitution(cand.getSendinginstitution());
         return crep.save(cand);
     }
+    @Override
+    public Candidature affectSConactPerson(Long idCand, Long idSCP) {
 
+        ContactPerson cnp = cprep.findById(idSCP).get();
+        Candidature c = crep.findById(idCand).get();
+
+        c.getSendinginstitution().setContactperson(cnp);
+        return crep.save(c);
+    }
     @Override
     public void preselectCandidature(Candidature cand) {
         crep.preselectStudent(cand.getId(), cand.getStudent().getId());
@@ -55,12 +63,17 @@ public class CandidatureImpl implements ICandidatureImpl {
     }
     @Override
     public void confirmCandidature(Candidature cand) {
-        LocalDate localDate = LocalDate.now();
-        Date date = java.sql.Date.valueOf(localDate);
-        cand.setConfirmationD(date);
+        crep.findById(cand.getId()).get().setConfirmationD(new Date());
         crep.confirmStudent(cand.getId(), cand.getStudent().getId());
     }
-
+    @Override
+    public void removeConfirmation(Candidature cand) {
+        crep.removeConfirmation(cand.getId(), cand.getStudent().getId());
+    }
+    @Override
+    public void removeSelection(Candidature cand) {
+        crep.removeSelection(cand.getId(), cand.getStudent().getId());
+    }
     @Override
     public List<Candidature> showAllCandidature() {
         return (List<Candidature>) crep.findAll();

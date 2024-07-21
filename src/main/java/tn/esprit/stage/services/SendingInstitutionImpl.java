@@ -18,9 +18,7 @@ public class SendingInstitutionImpl implements ISendingInstitutionImpl {
 	ContactPersonRep cprep;
 
 	@Override
-	public SendingInstitution addSendingInstitution(SendingInstitution si,ContactPerson cp) {
-		
-		si.setContactperson(cp);
+	public SendingInstitution addSendingInstitution(SendingInstitution si) {
 
 		// TODO Auto-generated method stub
 		return sirep.save(si);

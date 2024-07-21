@@ -35,11 +35,14 @@ public class CandidatureController {
     SendingInstitutionRep sirep;
 
     @PostMapping("/addCand")
-    public Candidature addCandidature(@RequestBody Candidature c, @RequestParam Long idcp) {
+    public Candidature addCandidature(@RequestBody Candidature c) {
 
-        return cs.addCandidature(c, idcp);
+        return cs.addCandidature(c);
     }
-
+    @PostMapping("/affSCP")
+    public Candidature affectSContactPerson(@RequestParam Long idCand, @RequestParam Long idSCP) {
+        return cs.affectSConactPerson(idCand, idSCP);
+    }
     @PostMapping("/confCand")
     public Candidature confirmCandidature(@RequestBody Candidature c) {
         cs.confirmCandidature(c);
@@ -51,7 +54,17 @@ public class CandidatureController {
         cs.preselectCandidature(c);
         return c;
     }
+    @PostMapping("/reConfCand")
+    public Candidature removeConfirmation(@RequestBody Candidature c) {
+        cs.removeConfirmation(c);
+        return c;
+    }
 
+    @PostMapping("/rePresCand")
+    public Candidature removeSelection(@RequestBody Candidature c) {
+        cs.removeSelection(c);
+        return c;
+    }
     @PostMapping("/studCands")
     public List<Candidature> studentCandidature(@RequestBody Candidature c) {
         return cs.retrieveStudentCandidatures(c);
