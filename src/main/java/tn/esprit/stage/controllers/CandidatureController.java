@@ -12,10 +12,7 @@ import tn.esprit.stage.entities.ReceivingInstitution;
 import tn.esprit.stage.entities.SendingInstitution;
 import tn.esprit.stage.repositories.CandidatureRep;
 import tn.esprit.stage.repositories.SendingInstitutionRep;
-import tn.esprit.stage.services.ICandidatureImpl;
-import tn.esprit.stage.services.IContactPersonImpl;
-import tn.esprit.stage.services.IReceivingInstitutionImpl;
-import tn.esprit.stage.services.ISendingInstitutionImpl;
+import tn.esprit.stage.services.*;
 
 
 @RestController
@@ -44,13 +41,13 @@ public class CandidatureController {
         return cs.affectSConactPerson(idCand, idSCP);
     }
     @PostMapping("/confCand")
-    public Candidature confirmCandidature(@RequestBody Candidature c) {
+    public Candidature confirmCandidature(@RequestBody Candidature c) throws Exception {
         cs.confirmCandidature(c);
         return c;
     }
 
     @PostMapping("/presCand")
-    public Candidature preselectCandidature(@RequestBody Candidature c) {
+    public Candidature preselectCandidature(@RequestBody Candidature c) throws Exception {
         cs.preselectCandidature(c);
         return c;
     }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import tn.esprit.stage.entities.*;
 import tn.esprit.stage.repositories.CandidatureRep;
 import tn.esprit.stage.repositories.ContactPersonRep;
+import tn.esprit.stage.repositories.QuizRepository;
 import tn.esprit.stage.repositories.SendingInstitutionRep;
 
 @Service
@@ -17,6 +18,8 @@ public class CandidatureImpl implements ICandidatureImpl {
 
     @Autowired
     CandidatureRep crep;
+    @Autowired
+    QuizRepository qrep;
     @Autowired
     StudentImpl ss;
     @Autowired
@@ -27,7 +30,8 @@ public class CandidatureImpl implements ICandidatureImpl {
     ContactPersonRep cprep;
     @Autowired
     SendingInstitutionRep sirep;
-
+    @Autowired
+    IEmailingServiceImpl Es;
 
     @Override
     public Candidature addCandidature(Candidature cand) {
@@ -54,17 +58,25 @@ public class CandidatureImpl implements ICandidatureImpl {
         return crep.save(c);
     }
     @Override
-    public void preselectCandidature(Candidature cand) {
+    public void preselectCandidature(Candidature cand) throws Exception {
         crep.preselectStudent(cand.getId(), cand.getStudent().getId());
+        Quiz quiz = new Quiz();
+        Candidature candidature = crep.findById(cand.getId()).get();
+        candidature.setQuiz(qrep.save(quiz));
+        Es.PreselectionMail(candidature);
+        crep.save(candidature);
     }
     @Override
     public List<Candidature> retrieveStudentCandidatures(Candidature cand) {
         return crep.retrieveStudentCandidatures(cand.getStudent().getId());
     }
     @Override
-    public void confirmCandidature(Candidature cand) {
-        crep.findById(cand.getId()).get().setConfirmationD(new Date());
+    public void confirmCandidature(Candidature cand) throws Exception {
+        Candidature candidature= crep.findById(cand.getId()).get();
+        candidature.setConfirmationD(new Date());
         crep.confirmStudent(cand.getId(), cand.getStudent().getId());
+        Es.ConfirmationMail(candidature);
+        crep.save(candidature);
     }
     @Override
     public void removeConfirmation(Candidature cand) {

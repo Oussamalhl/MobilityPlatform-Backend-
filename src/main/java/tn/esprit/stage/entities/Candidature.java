@@ -35,7 +35,9 @@ public class Candidature implements Serializable {
 
     private Boolean confirmed,preselected;
 
+    private Boolean quizPass;
 
+    private String specialty;
     private Date confirmationD;
     @ManyToOne(fetch = FetchType.EAGER)
     private Student student;
@@ -43,6 +45,7 @@ public class Candidature implements Serializable {
     private SendingInstitution sendinginstitution;
     @ManyToOne(fetch = FetchType.EAGER)
     private ReceivingInstitution receivinginstitution;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    Quiz quiz;
 
 }
