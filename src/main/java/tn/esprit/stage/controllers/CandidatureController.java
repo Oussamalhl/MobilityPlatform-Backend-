@@ -36,6 +36,10 @@ public class CandidatureController {
 
         return cs.addCandidature(c);
     }
+    @DeleteMapping("/delCand")
+    public void deleteCandidature(@RequestParam Long idCand) {
+        cs.deleteCandidature(idCand);
+    }
     @PostMapping("/affSCP")
     public Candidature affectSContactPerson(@RequestParam Long idCand, @RequestParam Long idSCP) {
         return cs.affectSConactPerson(idCand, idSCP);
